@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your & My Eyes Only 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.unlocked {
+            background: transparent;
+            overflow: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .container.full-screen {
+            max-width: 100%;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ==================== PASSWORD SCREEN (UNCHANGED) ==================== */
+        #password-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .lock-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .password-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            border: 2px solid #ff4757;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .dot.filled {
+            background: #ff4757;
+            transform: scale(1.2);
+        }
+
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .num-btn {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #ff4757;
+            background: white;
+            border-radius: 50%;
+            font-size: 24px;
+            color: #ff4757;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .num-btn:hover {
+            background: #ffe0e5;
+            transform: scale(1.05);
+        }
+
+        .num-btn:active {
+            transform: scale(0.95);
+        }
+
+        .num-btn.delete {
+            font-size: 20px;
+            color: #ff4757;
+        }
+
+        .num-btn.zero {
+            grid-column: 2;
+        }
+
+        .error-shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* ==================== CONTENT PAGES (NEW DESIGN) ==================== */
+        .page {
+            display: none;
+            background: linear-gradient(135deg, #ff6b95 0%, #ff758c 100%);
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Decorative hearts floating */
+        .heart-decor {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.4;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .page-content {
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Comic title style */
+        .comic-title {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            letter-spacing: 2px;
+        }
+
+        /* Notebook paper style */
+        .notebook-paper {
+            background: linear-gradient(to bottom, 
+                transparent 0px, 
+                transparent 29px, 
+                #ffc1c1 29px, 
+                #ffc1c1 31px, 
+                transparent 31px,
+                transparent 61px
+            );
+            background-size: 100% 31px;
+            background-color: #fffef0;
+            padding: 30px 20px 30px 40px;
+            margin: 20px auto;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 5px;
+            transform: rotate(-1deg);
+        }
+
+        .notebook-paper::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff9999;
+        }
+
+        /* Red dots on the left like a notebook */
+        .notebook-paper::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 15px;
+            width: 6px;
+            height: 6px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            box-shadow: 
+                0 31px 0 #ff6b6b,
+                0 62px 0 #ff6b6b,
+                0 93px 0 #ff6b6b,
+                0 124px 0 #ff6b6b,
+                0 155px 0 #ff6b6b,
+                0 186px 0 #ff6b6b,
+                0 217px 0 #ff6b6b;
+        }
+
+        .handwritten-text {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            line-height: 31px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Heart garland decoration */
+        .heart-garland {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .heart-garland span {
+            font-size: 25px;
+            margin: 0 5px;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        .heart-garland span:nth-child(even) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Photo frame with hearts */
+        .photo-frame {
+            max-width: 350px;
+            margin: 30px auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .photo-placeholder {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            margin: 0 auto;
+            border: 8px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            transform: rotate(2deg);
+        }
+
+        .heart-border {
+            position: absolute;
+            color: #ff4757;
+            font-size: 30px;
+        }
+
+        .heart-border.top-left { top: -15px; left: -15px; }
+        .heart-border.top-right { top: -15px; right: -15px; }
+        .heart-border.bottom-left { bottom: -15px; left: -15px; }
+        .heart-border.bottom-right { bottom: -15px; right: -15px; }
+
+        /* Doodled hearts */
+        .doodle-heart {
+            position: absolute;
+            color: #ff4757;
+            font-size: 40px;
+            opacity: 0.6;
+        }
+
+        /* Text with XOXO style */
+        .xoxo-text {
+            font-family: 'Permanent Marker', cursive;
+            color: #ff4757;
+            font-size: 48px;
+            text-align: center;
+            margin: 20px 0;
+            transform: rotate(-5deg);
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+        }
+
+        /* Click me arrow */
+        .click-arrow {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            animation: bounce 1s infinite;
+            cursor: pointer;
+        }
+
+        .click-arrow::after {
+            content: '→';
+            margin-left: 10px;
+            display: inline-block;
+            animation: arrowMove 1s infinite;
+        }
+
+        @keyframes arrowMove {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* List on paper */
+        .love-list {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #333;
+            line-height: 32px;
+            margin-top: 10px;
+        }
+
+        .love-list li {
+            margin: 5px 0;
+        }
+
+        /* Lipstick kiss mark */
+        .kiss-mark {
+            font-size: 60px;
+            position: absolute;
+            opacity: 0.7;
+            transform: rotate(15deg);
+        }
+
+        /* Yes/No buttons for question page */
+        .question-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .big-question {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            font-size: 42px;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            line-height: 1.3;
+        }
+
+        .button-container {
+            position: relative;
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .valentine-btn {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 20px 45px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #00f260 0%, #0575e6 100%);
+            color: white;
+            position: relative;
+        }
+
+        .yes-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6348 100%);
+            color: white;
+            position: relative;
+        }
+
+        /* Flowers final page */
+        .flowers-page {
+            background: linear-gradient(135deg, #ff6b95 0%, #ff758c 100%);
+            min-height: 100vh;
+            width: 100vw;
+            padding: 40px 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 200;
+        }
+
+        /* New Final Message Page */
+        .final-message-page {
+            background: linear-gradient(135deg, #ff6b95 0%, #ff758c 100%);
+            min-height: 100vh;
+            width: 100vw;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 300;
+        }
+
+        .final-message-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .final-message {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            font-size: 56px;
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            line-height: 1.4;
+            margin: 40px 20px;
+            animation: bounceIn 1s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .final-hearts {
+            font-size: 60px;
+            margin: 30px 0;
+        }
+
+        .final-hearts span {
+            display: inline-block;
+            animation: heartPop 1.5s ease-in-out infinite;
+            margin: 0 10px;
+        }
+
+        .final-hearts span:nth-child(1) { animation-delay: 0s; }
+        .final-hearts span:nth-child(2) { animation-delay: 0.2s; }
+        .final-hearts span:nth-child(3) { animation-delay: 0.4s; }
+        .final-hearts span:nth-child(4) { animation-delay: 0.6s; }
+        .final-hearts span:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes heartPop {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.4) rotate(15deg); }
+        }
+
+        /* Floating decorative elements on final page */
+        .final-decor {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.5;
+            animation: floatAround 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAround {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(10deg); }
+            50% { transform: translateY(-10px) rotate(-10deg); }
+            75% { transform: translateY(-40px) rotate(5deg); }
+        }
+
+        .final-xoxo {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            font-size: 56px;
+            margin: 30px 0;
+            transform: rotate(-8deg);
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+
+        .flowers-title {
+            font-family: 'Permanent Marker', cursive;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+        }
+
+        .flowers-frame {
+            max-width: 400px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .flower-image {
+            font-size: 120px;
+            margin: 20px 0;
+        }
+
+        .love-messages {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .love-note {
+            background: #fffef0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Caveat', cursive;
+            font-size: 18px;
+            color: #333;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+        }
+
+        .love-note:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 500px) {
+            .comic-title {
+                font-size: 28px;
+            }
+            
+            .notebook-paper {
+                max-width: 90%;
+                padding: 25px 15px 25px 35px;
+            }
+            
+            .handwritten-text {
+                font-size: 20px;
+                line-height: 28px;
+            }
+            
+            .big-question {
+                font-size: 32px;
+            }
+            
+            .photo-placeholder {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .xoxo-text {
+                font-size: 40px;
+            }
+            
+            .final-message {
+                font-size: 42px;
+                margin: 20px 15px;
+            }
+            
+            .final-xoxo {
+                font-size: 44px;
+            }
+            
+            .valentine-btn {
+                font-size: 24px;
+                padding: 15px 35px;
+            }
+
+            .button-container {
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .page-content {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PASSWORD SCREEN (UNCHANGED) -->
+        <div id="password-screen">
+            <div class="lock-icon">🔒</div>
+            <h1>Your & My Eyes Only</h1>
+            <div class="password-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="numpad">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn zero" data-num="0">0</button>
+                <button class="num-btn delete" data-num="delete">✕</button>
+            </div>
+        </div>
+
+        <!-- Page 1: Happy Valentine's Day -->
+        <div class="page" id="page1">
+            <!-- Decorative hearts -->
+            <span class="heart-decor" style="top: 20px; left: 30px;">❤️</span>
+            <span class="heart-decor" style="top: 60px; right: 40px;">💕</span>
+            <span class="heart-decor" style="bottom: 100px; left: 50px;">💖</span>
+            <span class="heart-decor" style="bottom: 50px; right: 30px;">💗</span>
+            <span class="kiss-mark" style="top: 120px; right: 20px;">💋</span>
+            
+            <div class="page-content">
+                <h2 class="comic-title">Happy Valentine's Day, My Love</h2>
+                
+                <div class="heart-garland">
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                </div>
+                
+                <div class="notebook-paper">
+                    <div class="handwritten-text">
+                        To the love of my life,<br>
+                        You make every day feel special,<br>
+                        but today is extra magical<br>
+                        because I get to celebrate<br>
+                        YOU! ❤️
+                    </div>
+                </div>
+                
+                <div class="click-arrow" onclick="nextPage()">click me!</div>
+            </div>
+        </div>
+
+        <!-- Page 2: You + Me Forever -->
+        <div class="page" id="page2">
+            <span class="heart-decor" style="top: 40px; left: 20px;">💝</span>
+            <span class="heart-decor" style="top: 100px; right: 30px;">💞</span>
+            <span class="heart-decor" style="bottom: 150px; left: 40px;">💓</span>
+            
+            <div class="page-content">
+                <h2 class="comic-title">You + Me Forever</h2>
+                
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        👫
+                        <span class="heart-border top-left">❤️</span>
+                        <span class="heart-border top-right">❤️</span>
+                        <span class="heart-border bottom-left">❤️</span>
+                        <span class="heart-border bottom-right">❤️</span>
+                    </div>
+                </div>
+                
+                <div class="xoxo-text">XOXO</div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <div class="notebook-paper" style="max-width: 250px; padding: 20px;">
+                        <div class="handwritten-text" style="font-size: 20px;">
+                            I love...<br>
+                            1. your eyes<br>
+                            2. your smile<br>
+                            3. your laugh<br>
+                            4. Everything! 💕
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="click-arrow" onclick="nextPage()">click me!</div>
+            </div>
+        </div>
+
+        <!-- Page 3: Heartfelt Letter -->
+        <div class="page" id="page3">
+            <span class="doodle-heart" style="top: 30px; left: 20px;">❤️</span>
+            <span class="doodle-heart" style="top: 80px; right: 30px;">💕</span>
+            <span class="doodle-heart" style="bottom: 100px; left: 30px;">💖</span>
+            <span class="doodle-heart" style="bottom: 200px; right: 40px;">💗</span>
+            
+            <div class="page-content">
+                <h2 class="comic-title">Heart 2 Heart</h2>
+                
+                <div class="heart-garland">
+                    <span>❤️</span>
+                    <span style="font-size: 35px;">❤️</span>
+                    <span>❤️</span>
+                    <span style="font-size: 35px;">❤️</span>
+                    <span>❤️</span>
+                </div>
+                
+                <div class="notebook-paper" style="max-width: 85%; transform: rotate(1deg);">
+                    <div class="handwritten-text">
+                        To the love of my life,<br>
+                        you make my life so meaningful<br>
+                        and I am so lucky to have you<br>
+                        as my valentine this year. I love<br>
+                        you wholeheartedly and I can't<br>
+                        wait to continue loving you for<br>
+                        the rest of my life. I know I tell<br>
+                        you this everyday but you are<br>
+                        literally the most beautiful girl<br>
+                        I know. Anyways, I love you.<br>
+                        <span style="margin-left: 100px;">Always, Forever ❤️</span>
+                    </div>
+                </div>
+                
+                <div class="click-arrow" onclick="nextPage()">click me!</div>
+            </div>
+        </div>
+
+        <!-- Page 4: The Question -->
+        <div class="page" id="page4">
+            <span class="heart-decor" style="top: 30px; left: 25px; font-size: 40px;">💝</span>
+            <span class="heart-decor" style="top: 80px; right: 35px; font-size: 35px;">💕</span>
+            <span class="heart-decor" style="bottom: 150px; left: 30px; font-size: 45px;">💖</span>
+            <span class="heart-decor" style="bottom: 200px; right: 25px; font-size: 38px;">💗</span>
+            <span class="heart-decor" style="top: 200px; left: 50%; font-size: 42px;">❤️</span>
+            
+            <div class="question-section">
+                <div class="big-question">
+                    Will You Be<br>My Valentine? 💕
+                </div>
+                
+                <div class="button-container">
+                    <button class="valentine-btn yes-btn" onclick="showFlowers()">Yes! ❤️</button>
+                    <button class="valentine-btn no-btn" id="noBtn">No 😢</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flowers Page -->
+        <div class="flowers-page hidden" id="flowersPage">
+            <h1 class="flowers-title">Flowers For You</h1>
+            
+            <div class="heart-garland" style="margin: 30px 0;">
+                <span>❤️</span>
+                <span>💕</span>
+                <span>❤️</span>
+                <span>💕</span>
+                <span>❤️</span>
+                <span>💕</span>
+                <span>❤️</span>
+            </div>
+            
+            <div class="flowers-frame">
+                <div class="flower-image">💐</div>
+                
+                <div class="love-messages">
+                    <div class="love-note">I will always love you no matter what</div>
+                    <div class="love-note">You will forever be my only option.</div>
+                    <div class="love-note">You are the best part of my life</div>
+                    <div class="love-note">I can't imagine a life without you in it</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <div class="xoxo-text" style="color: white;">Forever Yours ❤️</div>
+            </div>
+        </div>
+
+        <!-- Final Message Page -->
+        <div class="final-message-page hidden" id="finalMessagePage">
+            <!-- Floating decorations -->
+            <span class="final-decor" style="top: 50px; left: 30px;">💕</span>
+            <span class="final-decor" style="top: 100px; right: 40px; animation-delay: 0.5s;">❤️</span>
+            <span class="final-decor" style="bottom: 150px; left: 50px; animation-delay: 1s;">💖</span>
+            <span class="final-decor" style="bottom: 200px; right: 30px; animation-delay: 1.5s;">💗</span>
+            <span class="final-decor" style="top: 200px; left: 60%; animation-delay: 0.8s;">💝</span>
+            <span class="kiss-mark" style="top: 150px; right: 60px;">💋</span>
+            <span class="kiss-mark" style="bottom: 100px; left: 40px; animation-delay: 1s;">💋</span>
+            
+            <div class="final-message-content">
+                <div class="final-hearts">
+                    <span>💝</span>
+                    <span>💕</span>
+                    <span>❤️</span>
+                    <span>💖</span>
+                    <span>💗</span>
+                </div>
+                
+                <div class="final-message">
+                    I am waiting<br>for you,<br>dumbass 😘
+                </div>
+                
+                <div class="final-xoxo">
+                    XOXO
+                </div>
+                
+                <div class="final-hearts">
+                    <span>💗</span>
+                    <span>💖</span>
+                    <span>❤️</span>
+                    <span>💕</span>
+                    <span>💝</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password System (UNCHANGED)
+        const correctHash = "36d144ea081f24500bf72163ccde3d47487366cc47e9ea2fa199f60bbbcee648";
+        let enteredPassword = '';
+        const dots = document.querySelectorAll('.dot');
+        const numButtons = document.querySelectorAll('.num-btn');
+        const passwordScreen = document.getElementById('password-screen');
+
+        numButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const num = this.getAttribute('data-num');
+                
+                if (num === 'delete') {
+                    enteredPassword = '';
+                    updateDots();
+                } else if (enteredPassword.length < 4) {
+                    enteredPassword += num;
+                    updateDots();
+                    
+                    if (enteredPassword.length === 4) {
+                        checkPassword();
+                    }
+                }
+            });
+        });
+
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                if (index < enteredPassword.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            });
+        }
+
+        async function sha256(text) {
+    const msgBuffer = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function checkPassword() {
+    const enteredHash = await sha256(enteredPassword);
+
+    if (enteredHash === correctHash) {
+        setTimeout(() => {
+            passwordScreen.style.display = 'none';
+            document.getElementById('page1').classList.add('active');
+            document.body.classList.add('unlocked');
+            document.querySelector('.container').classList.add('full-screen');
+        }, 300);
+    } else {
+        passwordScreen.classList.add('error-shake');
+        setTimeout(() => {
+            passwordScreen.classList.remove('error-shake');
+            enteredPassword = '';
+            updateDots();
+        }, 500);
+    }
+}
+
+
+        // Page Navigation
+        let currentPage = 1;
+        const totalPages = 4;
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+            }
+        }
+
+        // Moving "No" Button (NO SIZE CHANGE)
+        const noBtn = document.getElementById('noBtn');
+        let noBtnMoved = false;
+
+        noBtn.addEventListener('mouseenter', function() {
+            moveNoButton();
+        });
+
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        function moveNoButton() {
+            noBtnMoved = true;
+            const page = document.getElementById('page4');
+            const pageRect = page.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Calculate random position
+            const maxX = window.innerWidth - btnRect.width - 40;
+            const maxY = window.innerHeight - btnRect.height - 40;
+            
+            const randomX = Math.random() * maxX + 20;
+            const randomY = Math.random() * maxY + 20;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transition = 'all 0.3s ease';
+            noBtn.style.zIndex = '1000';
+        }
+
+        // Show Final Message (instead of flowers)
+        function showFlowers() {
+            document.getElementById('page4').style.display = 'none';
+            document.getElementById('finalMessagePage').classList.remove('hidden');
+        }
+
+        // Security (prevent console access)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) ||
+                (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
