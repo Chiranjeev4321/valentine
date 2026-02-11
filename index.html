@@ -874,6 +874,11 @@
                 <div class="final-xoxo">
                     XOXO
                 </div>
+
+                <button class="valentine-btn yes-btn" onclick="openFlowersFromFinal()" style="margin-top: 20px;">
+                    Something for you 🌸
+                </button>
+
                 
                 <div class="final-hearts">
                     <span>💗</span>
@@ -1005,6 +1010,12 @@ async function checkPassword() {
             document.getElementById('page4').style.display = 'none';
             document.getElementById('finalMessagePage').classList.remove('hidden');
         }
+
+        function openFlowersFromFinal() {
+                document.getElementById('finalMessagePage').classList.add('hidden');
+                 document.getElementById('flowersPage').classList.remove('hidden');
+        }
+
 
         // Security (prevent console access)
         document.addEventListener('contextmenu', e => e.preventDefault());
