@@ -895,7 +895,10 @@
 
     <script>
         // Password System (UNCHANGED)
-        const correctHash = "36d144ea081f24500bf72163ccde3d47487366cc47e9ea2fa199f60bbbcee648";
+        const correctHashes = [
+              "36d144ea081f24500bf72163ccde3d47487366cc47e9ea2fa199f60bbbcee648",
+            "60fb27b6df84e9fc873d3a2bda51e22fead7708c19a636d4650f75db7a590628"
+        ];
         let enteredPassword = '';
         const dots = document.querySelectorAll('.dot');
         const numButtons = document.querySelectorAll('.num-btn');
@@ -939,7 +942,8 @@
 async function checkPassword() {
     const enteredHash = await sha256(enteredPassword);
 
-    if (enteredHash === correctHash) {
+    if (correctHashes.includes(enteredHash))
+ {
         setTimeout(() => {
             passwordScreen.style.display = 'none';
             document.getElementById('page1').classList.add('active');
