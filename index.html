@@ -7,72 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-  background:#764ba2;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-/* ── SCREEN SYSTEM ──────────────────────────────────────────
-   Every screen is position:fixed, hidden by default.
-   Adding class "show" makes it visible. No containers, no
-   conflicting display rules. Clean and simple.              */
-.screen {
-  display:none;
-  position:fixed;
-  top:0; left:0; right:0; bottom:0;
-  width:100vw; height:100vh;
-  z-index:100;
-  overflow-y:auto;
-  overflow-x:hidden;
-}
-.screen.show {
-  display:block;
-  animation:fadeIn .5s ease;
-}
-/* Special: screens that need flex layout */
-.screen.flex-screen {
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.screen.flex-screen.show {
-  display:flex;
-  animation:fadeIn .5s ease;
-}
-.screen.col-screen {
-  display:none;
-  flex-direction:column;
-  align-items:center;
-}
-.screen.col-screen.show {
-  display:flex;
-  animation:fadeIn .5s ease;
-}
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#764ba2; min-height:100vh; overflow-x:hidden; }
+.screen { display:none; position:fixed; top:0; left:0; right:0; bottom:0; width:100vw; height:100vh; z-index:100; overflow-y:auto; overflow-x:hidden; }
+.screen.show { display:block; animation:fadeIn .5s ease; }
+.screen.flex-screen { display:none; align-items:center; justify-content:center; }
+.screen.flex-screen.show { display:flex; animation:fadeIn .5s ease; }
+.screen.col-screen { display:none; flex-direction:column; align-items:center; }
+.screen.col-screen.show { display:flex; animation:fadeIn .5s ease; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-
-/* ── BACK BUTTON ────────────────────────────────────────────*/
-.back-btn {
-  position:fixed; top:16px; left:16px; z-index:9999;
-  background:rgba(255,255,255,.25); border:2px solid white; color:white;
-  font-family:'Caveat',cursive; font-size:18px; padding:8px 16px;
-  border-radius:30px; cursor:pointer; backdrop-filter:blur(4px);
-  transition:background .2s;
-}
+.back-btn { position:fixed; top:16px; left:16px; z-index:9999; background:rgba(255,255,255,.25); border:2px solid white; color:white; font-family:'Caveat',cursive; font-size:18px; padding:8px 16px; border-radius:30px; cursor:pointer; backdrop-filter:blur(4px); transition:background .2s; }
 .back-btn:hover { background:rgba(255,255,255,.4); }
 .dark-back { background:rgba(255,255,255,.12) !important; border-color:rgba(255,255,255,.3) !important; }
-
-/* ── PASSWORD SCREEN ────────────────────────────────────────*/
-#s-lock {
-  background:linear-gradient(135deg,#667eea,#764ba2);
-}
-.lock-box {
-  background:white; border-radius:20px; padding:40px 20px;
-  box-shadow:0 20px 60px rgba(0,0,0,.3); text-align:center;
-  width:calc(100% - 40px); max-width:360px;
-}
+#s-lock { background:linear-gradient(135deg,#667eea,#764ba2); }
+.lock-box { background:white; border-radius:20px; padding:40px 20px; box-shadow:0 20px 60px rgba(0,0,0,.3); text-align:center; width:calc(100% - 40px); max-width:360px; }
 .lock-icon { font-size:60px; margin-bottom:20px; animation:pulse 2s infinite; }
 @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
 .lock-title { font-size:24px; color:#333; margin-bottom:30px; font-weight:600; }
@@ -80,23 +27,13 @@ body {
 .dot { width:15px; height:15px; border:2px solid #ff4757; border-radius:50%; transition:all .3s; }
 .dot.filled { background:#ff4757; transform:scale(1.2); }
 .numpad { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; max-width:270px; margin:0 auto; }
-.num-btn {
-  width:70px; height:70px; border:2px solid #ff4757; background:white;
-  border-radius:50%; font-size:24px; color:#ff4757; cursor:pointer;
-  transition:all .2s; display:flex; align-items:center; justify-content:center;
-  user-select:none; margin:0 auto;
-}
+.num-btn { width:70px; height:70px; border:2px solid #ff4757; background:white; border-radius:50%; font-size:24px; color:#ff4757; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; user-select:none; margin:0 auto; }
 .num-btn:hover { background:#ffe0e5; transform:scale(1.05); }
 .num-btn:active { transform:scale(.95); }
 .num-btn.zero { grid-column:2; }
 .error-shake { animation:shake .5s; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-10px)} 75%{transform:translateX(10px)} }
-
-/* ── HOME MENU ──────────────────────────────────────────────*/
-#s-home {
-  background:linear-gradient(135deg,#ff6b95,#c44569);
-  padding:50px 20px 40px;
-}
+#s-home { background:linear-gradient(135deg,#ff6b95,#c44569); padding:50px 20px 40px; }
 .menu-welcome { font-family:'Permanent Marker',cursive; color:white; font-size:36px; text-align:center; text-shadow:3px 3px 0 rgba(0,0,0,.2); margin-bottom:8px; animation:bounceIn .8s ease; }
 @keyframes bounceIn { 0%{transform:scale(0);opacity:0} 70%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
 .menu-sub { font-family:'Caveat',cursive; color:rgba(255,255,255,.85); font-size:20px; text-align:center; margin-bottom:20px; }
@@ -105,12 +42,7 @@ body {
 .menu-hearts span:nth-child(2){animation-delay:.2s} .menu-hearts span:nth-child(3){animation-delay:.4s} .menu-hearts span:nth-child(4){animation-delay:.6s}
 @keyframes hbeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
 .menu-cards { display:flex; flex-direction:column; gap:14px; max-width:420px; margin:0 auto; }
-.menu-card {
-  background:white; border-radius:18px; padding:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2); cursor:pointer;
-  transition:transform .2s,box-shadow .2s;
-  display:flex; align-items:center; gap:14px;
-}
+.menu-card { background:white; border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.2); cursor:pointer; transition:transform .2s,box-shadow .2s; display:flex; align-items:center; gap:14px; }
 .menu-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.3); }
 .menu-card:active { transform:scale(.97); }
 .mc-icon { font-size:40px; flex-shrink:0; }
@@ -121,8 +53,11 @@ body {
 @keyframes arr { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 .bday-card-menu { background:linear-gradient(135deg,#fff8f0,#ffe8d6) !important; border:2px solid #f4a261; animation:bgl 2.5s ease-in-out infinite; }
 @keyframes bgl { 0%,100%{box-shadow:0 8px 24px rgba(244,162,97,.2)} 50%{box-shadow:0 14px 40px rgba(244,162,97,.5)} }
-
-/* ── SHARED VALENTINE STYLES ────────────────────────────────*/
+.edits-card-menu { background:linear-gradient(135deg,#1a1a2e,#2d1b4e) !important; border:2px solid rgba(180,100,255,.4); animation:editglow 2.5s ease-in-out infinite; }
+.edits-card-menu .mc-title { color:#d4a8ff !important; }
+.edits-card-menu .mc-desc { color:rgba(212,168,255,.65) !important; }
+.edits-card-menu .mc-arrow { color:#d4a8ff !important; }
+@keyframes editglow { 0%,100%{box-shadow:0 8px 24px rgba(150,80,255,.2)} 50%{box-shadow:0 14px 40px rgba(180,100,255,.45)} }
 .val-bg { background:linear-gradient(135deg,#ff6b95,#ff758c); }
 .heart-decor { position:absolute; opacity:.4; animation:fl 3s ease-in-out infinite; }
 @keyframes fl { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
@@ -131,40 +66,20 @@ body {
 .garland { display:flex; justify-content:center; flex-wrap:wrap; gap:5px; margin:12px 0; font-size:22px; }
 .garland span { animation:hbeat 1.5s ease-in-out infinite; }
 .garland span:nth-child(even){animation-delay:.3s}
-
-.notebook-paper {
-  background:linear-gradient(to bottom,transparent 0,transparent 29px,#ffc1c1 29px,#ffc1c1 31px,transparent 31px,transparent 61px);
-  background-size:100% 31px; background-color:#fffef0;
-  padding:28px 18px 28px 38px; margin:16px auto; max-width:400px;
-  position:relative; box-shadow:0 8px 25px rgba(0,0,0,.25); border-radius:5px; transform:rotate(-1deg);
-}
+.notebook-paper { background:linear-gradient(to bottom,transparent 0,transparent 29px,#ffc1c1 29px,#ffc1c1 31px,transparent 31px,transparent 61px); background-size:100% 31px; background-color:#fffef0; padding:28px 18px 28px 38px; margin:16px auto; max-width:400px; position:relative; box-shadow:0 8px 25px rgba(0,0,0,.25); border-radius:5px; transform:rotate(-1deg); }
 .notebook-paper::before { content:''; position:absolute; left:18px; top:0; bottom:0; width:2px; background:#ff9999; }
-.notebook-paper::after {
-  content:''; position:absolute; left:7px; top:15px; width:5px; height:5px;
-  background:#ff6b6b; border-radius:50%;
-  box-shadow:0 31px 0 #ff6b6b,0 62px 0 #ff6b6b,0 93px 0 #ff6b6b,0 124px 0 #ff6b6b,0 155px 0 #ff6b6b;
-}
+.notebook-paper::after { content:''; position:absolute; left:7px; top:15px; width:5px; height:5px; background:#ff6b6b; border-radius:50%; box-shadow:0 31px 0 #ff6b6b,0 62px 0 #ff6b6b,0 93px 0 #ff6b6b,0 124px 0 #ff6b6b,0 155px 0 #ff6b6b; }
 .hw { font-family:'Caveat',cursive; font-size:21px; line-height:31px; color:#333; font-weight:600; }
-
 .photo-wrap { max-width:320px; margin:16px auto; text-align:center; }
-.photo-box {
-  width:250px; height:250px; background:linear-gradient(135deg,#ffeaa7,#fdcb6e);
-  margin:0 auto; border:7px solid white; box-shadow:0 8px 25px rgba(0,0,0,.3);
-  position:relative; border-radius:10px; transform:rotate(2deg); overflow:hidden;
-  display:flex; align-items:center; justify-content:center; font-size:55px;
-}
+.photo-box { width:250px; height:250px; background:linear-gradient(135deg,#ffeaa7,#fdcb6e); margin:0 auto; border:7px solid white; box-shadow:0 8px 25px rgba(0,0,0,.3); position:relative; border-radius:10px; transform:rotate(2deg); overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:55px; }
 .photo-box img { width:100%; height:100%; object-fit:cover; display:block; border-radius:4px; }
 .hb { position:absolute; color:#ff4757; font-size:26px; }
 .hb.tl{top:-13px;left:-13px} .hb.tr{top:-13px;right:-13px} .hb.bl{bottom:-13px;left:-13px} .hb.br{bottom:-13px;right:-13px}
-
 .xoxo { font-family:'Permanent Marker',cursive; color:#ff4757; font-size:42px; text-align:center; margin:14px 0; transform:rotate(-5deg); text-shadow:2px 2px 0 rgba(255,255,255,.5); }
 .kiss { font-size:48px; position:absolute; opacity:.7; transform:rotate(15deg); }
-
 .click-arrow { font-family:'Permanent Marker',cursive; color:white; font-size:21px; text-align:center; margin-top:22px; cursor:pointer; animation:bounce 1s infinite; }
 .click-arrow::after { content:'→'; margin-left:8px; display:inline-block; animation:arr 1s infinite; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-
-/* Valentine q page */
 .q-section { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:20px; text-align:center; }
 .big-q { font-family:'Permanent Marker',cursive; color:white; font-size:38px; margin-bottom:40px; text-shadow:3px 3px 0 rgba(0,0,0,.2); line-height:1.3; }
 .btn-row { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; }
@@ -172,8 +87,6 @@ body {
 .yes-btn { background:linear-gradient(135deg,#00f260,#0575e6); color:white; }
 .yes-btn:hover { transform:translateY(-3px) scale(1.05); }
 .no-btn { background:linear-gradient(135deg,#ff4757,#ff6348); color:white; }
-
-/* Final & Flowers */
 #s-final, #s-flowers { background:linear-gradient(135deg,#ff6b95,#ff758c); padding:40px 20px; text-align:center; }
 .final-msg { font-family:'Permanent Marker',cursive; color:white; font-size:46px; text-shadow:4px 4px 0 rgba(0,0,0,.2); line-height:1.4; margin:24px 12px; animation:bounceIn 1s ease; }
 .final-hearts { font-size:48px; margin:16px 0; }
@@ -184,19 +97,13 @@ body {
 @keyframes wiggle { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
 .fdecor { position:absolute; font-size:34px; opacity:.5; animation:floatA 4s ease-in-out infinite; pointer-events:none; }
 @keyframes floatA { 0%,100%{transform:translateY(0) rotate(0)} 25%{transform:translateY(-22px) rotate(10deg)} 75%{transform:translateY(-32px) rotate(-8deg)} }
-
 .flowers-title { font-family:'Permanent Marker',cursive; color:white; font-size:40px; margin-bottom:16px; text-shadow:3px 3px 0 rgba(0,0,0,.2); }
 .flowers-frame { max-width:360px; margin:16px auto; background:white; padding:22px; border-radius:18px; box-shadow:0 12px 35px rgba(0,0,0,.25); }
 .flower-img { font-size:90px; margin:8px 0; }
 .love-msgs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
 .love-note { background:#fffef0; padding:10px; border-radius:10px; font-family:'Caveat',cursive; font-size:15px; color:#333; box-shadow:0 3px 10px rgba(0,0,0,.12); transform:rotate(-2deg); }
 .love-note:nth-child(even){transform:rotate(2deg)}
-
-/* ── GIFTS ──────────────────────────────────────────────────*/
-#s-gifts {
-  background:linear-gradient(135deg,#ff9a9e,#fecfef 50%,#ffecd2);
-  flex-direction:column; overflow:hidden;
-}
+#s-gifts { background:linear-gradient(135deg,#ff9a9e,#fecfef 50%,#ffecd2); flex-direction:column; overflow:hidden; }
 .gifts-hdr { text-align:center; padding:48px 20px 5px; flex-shrink:0; }
 .gifts-title { font-family:'Permanent Marker',cursive; color:#c44569; font-size:21px; text-shadow:2px 2px 0 rgba(255,255,255,.5); margin-bottom:2px; }
 .gifts-sub { font-family:'Caveat',cursive; color:#a06080; font-size:15px; }
@@ -220,79 +127,20 @@ body {
 .gift-arrow { width:44px; height:44px; border-radius:50%; background:white; border:2px solid #c44569; color:#c44569; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(196,69,105,.18); transition:all .2s; }
 .gift-arrow:hover { background:#c44569; color:white; transform:scale(1.08); }
 .gift-arrow:disabled { opacity:.3; cursor:default; transform:none; }
-
-/* ── MAGAZINE SCROLL ────────────────────────────────────────*/
-#s-magScroll {
-  background:linear-gradient(160deg,#1a1a2e,#16213e 50%,#0f3460);
-  flex-direction:column;
-  align-items:center;
-}
-.mag-scroll-wrap {
-  width:100%;
-  height:100%;
-  overflow-y:auto;
-  padding:52px 0 28px;
-}
-.mag-scroll-inner {
-  width:min(100%, 560px);
-  margin:0 auto;
-  padding:0 16px 24px;
-}
+#s-magScroll { background:linear-gradient(160deg,#1a1a2e,#16213e 50%,#0f3460); flex-direction:column; align-items:center; }
+.mag-scroll-wrap { width:100%; height:100%; overflow-y:auto; padding:52px 0 28px; }
+.mag-scroll-inner { width:min(100%, 560px); margin:0 auto; padding:0 16px 24px; }
 .mag-scroll-hdr { padding:0 0 10px; text-align:center; }
 .mag-scroll-brand { font-family:'Playfair Display',serif; font-style:italic; color:#e8c97a; font-size:11px; letter-spacing:5px; text-transform:uppercase; opacity:.8; margin-bottom:2px; }
 .mag-scroll-title { font-family:'Playfair Display',serif; color:white; font-size:24px; font-weight:700; }
 .mag-scroll-hint { font-family:'Caveat',cursive; color:rgba(255,255,255,.35); font-size:12px; padding:4px 0 12px; text-align:center; }
-.mag-card {
-  background:#fffef8;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 18px 55px rgba(0,0,0,.35);
-  margin:0 auto 16px;
-}
-.mag-cover-card {
-  background:linear-gradient(160deg,#c44569,#ff6b95 60%,#ffd3e1);
-  color:white;
-}
-.mag-cover-top { background:#c44569; padding:14px 16px 10px; text-align:center; }
-.mag-issue { font-family:'Playfair Display',serif; color:white; font-size:8px; letter-spacing:4px; text-transform:uppercase; opacity:.85; }
-.mag-name { font-family:'Permanent Marker',cursive; color:white; font-size:26px; text-shadow:2px 2px 0 rgba(0,0,0,.2); margin:4px 0 2px; }
-.mag-photo { min-height:240px; display:flex; align-items:center; justify-content:center; font-size:78px; background:linear-gradient(160deg,#ff9bb5,#ffd3e1); overflow:hidden; }
-.mag-photo img { width:100%; height:100%; object-fit:cover; display:block; }
-.mag-cover-btm { background:#c44569; padding:10px 16px 12px; }
-.mag-headline { font-family:'Playfair Display',serif; color:white; font-size:12px; font-weight:700; margin-bottom:4px; }
-.mag-teasers { display:flex; gap:5px; flex-wrap:wrap; }
-.mag-teaser { font-family:'Caveat',cursive; font-size:10px; color:rgba(255,255,255,.75); background:rgba(255,255,255,.15); padding:1px 7px; border-radius:10px; }
-.mag-page-top { background:#c44569; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; }
-.mag-section { font-family:'Playfair Display',serif; font-style:italic; color:rgba(255,255,255,.8); font-size:9px; letter-spacing:3px; text-transform:uppercase; }
-.mag-num { font-family:'Caveat',cursive; color:white; font-size:14px; }
-.mag-article { padding:14px 16px 16px; }
-.mag-label { font-family:'Playfair Display',serif; font-style:italic; font-size:9px; color:#c44569; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
-.mag-hl { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:#1a1a2e; line-height:1.25; margin-bottom:10px; }
-.mag-body { font-family:'Caveat',cursive; font-size:15px; color:#555; line-height:1.6; }
-.mag-quote { border-left:3px solid #c44569; padding:6px 11px; margin:10px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:#c44569; line-height:1.4; }
-.mag-photo-blk { width:100%; height:180px; background:linear-gradient(135deg,#ffecd2,#fcb69f); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:52px; margin:12px 0; overflow:hidden; }
-.mag-photo-blk img { width:100%; height:100%; object-fit:cover; display:block; }
-.mag-list { margin-top:10px; display:grid; gap:10px; }
-.mag-list-item { padding:10px; background:#fff5f8; border-radius:10px; }
-.mag-list-item span { font-family:'Permanent Marker',cursive; color:#c44569; font-size:13px; }
-.mag-end { background:linear-gradient(160deg,#1a1a2e,#c44569); color:white; text-align:center; padding:24px 18px; }
-.mag-end-msg { font-family:'Permanent Marker',cursive; color:white; font-size:20px; text-shadow:2px 2px 0 rgba(0,0,0,.3); line-height:1.55; margin:16px 0; }
-.mag-end-small { font-family:'Permanent Marker',cursive; color:rgba(255,255,255,.35); font-size:11px; letter-spacing:3px; margin-top:14px; }
-
-/* ── BIRTHDAY ───────────────────────────────────────────────*/
-#s-birthday {
-  background:linear-gradient(160deg,#1a0533,#3b0764 40%,#6d1b7b);
-}
+#s-birthday { background:linear-gradient(160deg,#1a0533,#3b0764 40%,#6d1b7b); }
 .confetti-wrap { position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:1; overflow:hidden; }
 .cpce { position:absolute; top:-20px; border-radius:2px; opacity:.85; animation:cfall linear infinite; }
 @keyframes cfall { 0%{transform:translateY(-20px) rotate(0);opacity:.9} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 .balloons { position:fixed; top:0; left:0; right:0; display:flex; justify-content:space-around; padding:0 8px; pointer-events:none; z-index:2; }
 .bn { font-size:34px; animation:bfl ease-in-out infinite; }
-.bn:nth-child(1){animation-duration:3.2s;animation-delay:0s}
-.bn:nth-child(2){animation-duration:2.8s;animation-delay:.4s}
-.bn:nth-child(3){animation-duration:3.5s;animation-delay:.8s}
-.bn:nth-child(4){animation-duration:2.6s;animation-delay:.2s}
-.bn:nth-child(5){animation-duration:3.0s;animation-delay:.6s}
+.bn:nth-child(1){animation-duration:3.2s;animation-delay:0s} .bn:nth-child(2){animation-duration:2.8s;animation-delay:.4s} .bn:nth-child(3){animation-duration:3.5s;animation-delay:.8s} .bn:nth-child(4){animation-duration:2.6s;animation-delay:.2s} .bn:nth-child(5){animation-duration:3.0s;animation-delay:.6s}
 @keyframes bfl { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-15px) rotate(4deg)} }
 .bday-content { position:relative; z-index:10; padding:68px 20px 36px; display:flex; flex-direction:column; align-items:center; gap:15px; }
 .cake-wrap { position:relative; display:flex; align-items:center; justify-content:center; }
@@ -316,25 +164,49 @@ body {
 @keyframes chp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
 .bday-burst { display:flex; gap:9px; font-size:24px; }
 .bday-burst span { animation:bb 1.8s ease-in-out infinite; }
-.bday-burst span:nth-child(1){animation-delay:0s}.bday-burst span:nth-child(2){animation-delay:.2s}.bday-burst span:nth-child(3){animation-delay:.4s}.bday-burst span:nth-child(4){animation-delay:.6s}.bday-burst span:nth-child(5){animation-delay:.8s}
+.bday-burst span:nth-child(1){animation-delay:0s} .bday-burst span:nth-child(2){animation-delay:.2s} .bday-burst span:nth-child(3){animation-delay:.4s} .bday-burst span:nth-child(4){animation-delay:.6s} .bday-burst span:nth-child(5){animation-delay:.8s}
 @keyframes bb { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-9px) rotate(14deg)} }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────*/
-@media(max-width:480px){
-  .comic-title{font-size:26px}
-  .hw{font-size:18px}
-  .big-q{font-size:30px}
-  .photo-box{width:210px;height:210px}
-  .final-msg{font-size:36px}
-  .mag-title{font-size:20px}
-  .bday-title{font-size:26px}
-}
+/* ── EDITS FOR YOU ─────────────────────────────────────────── */
+#s-edits { background:linear-gradient(160deg,#0d0d1a,#1a0d2e 40%,#2d0d3d); }
+.note-decor { position:fixed; pointer-events:none; z-index:1; opacity:0; animation:noteFloat linear infinite; font-size:18px; }
+@keyframes noteFloat { 0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0} 10%{opacity:.55} 90%{opacity:.35} 100%{transform:translateY(-110vh) rotate(360deg) scale(1.1);opacity:0} }
+.edits-wrap { position:relative; z-index:10; width:100%; min-height:100%; padding:68px 20px 40px; display:flex; flex-direction:column; align-items:center; gap:20px; }
+.edits-hdr { text-align:center; }
+.edits-eyebrow { font-family:'Playfair Display',serif; font-style:italic; color:#b08fff; font-size:11px; letter-spacing:5px; text-transform:uppercase; opacity:.8; margin-bottom:6px; }
+.edits-title { font-family:'Permanent Marker',cursive; color:white; font-size:30px; line-height:1.2; text-shadow:0 0 30px rgba(180,100,255,.6),3px 3px 0 rgba(0,0,0,.4); animation:editsTitleGlow 3s ease-in-out infinite; }
+@keyframes editsTitleGlow { 0%,100%{text-shadow:0 0 20px rgba(180,100,255,.4),3px 3px 0 rgba(0,0,0,.4)} 50%{text-shadow:0 0 45px rgba(220,150,255,.8),3px 3px 0 rgba(0,0,0,.4)} }
+.edits-sub { font-family:'Caveat',cursive; color:rgba(255,255,255,.5); font-size:15px; margin-top:6px; }
+.edit-card { background:rgba(255,255,255,.06); border:1.5px solid rgba(180,100,255,.25); border-radius:22px; padding:0; max-width:400px; width:100%; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08); transition:transform .25s,box-shadow .25s,border-color .25s; text-decoration:none; display:block; animation:cardDrift 5s ease-in-out infinite; }
+.edit-card:nth-child(odd){animation-delay:.4s} .edit-card:nth-child(even){animation-delay:1.2s}
+@keyframes cardDrift { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+.edit-card:hover { transform:translateY(-6px) scale(1.01); box-shadow:0 22px 55px rgba(180,100,255,.35),inset 0 1px 0 rgba(255,255,255,.12); border-color:rgba(200,130,255,.55); }
+.edit-card:active { transform:scale(.97); }
+.edit-card-inner { display:flex; align-items:center; gap:0; }
+.edit-num-strip { width:54px; min-height:88px; flex-shrink:0; background:linear-gradient(160deg,#6a0dad,#9b30ff); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+.edit-num { font-family:'Permanent Marker',cursive; color:white; font-size:22px; line-height:1; }
+.edit-vinyl { font-size:20px; animation:spin360 4s linear infinite; }
+@keyframes spin360 { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.edit-body { flex:1; padding:14px 14px 14px 16px; }
+.edit-song-label { font-family:'Playfair Display',serif; font-style:italic; color:rgba(180,130,255,.7); font-size:9px; letter-spacing:3px; text-transform:uppercase; margin-bottom:3px; }
+.edit-song-name { font-family:'Permanent Marker',cursive; color:white; font-size:18px; margin-bottom:6px; text-shadow:0 0 14px rgba(200,150,255,.4); }
+.edit-play-btn { display:inline-flex; align-items:center; gap:7px; background:linear-gradient(135deg,#ff4757,#c44569); color:white; font-family:'Caveat',cursive; font-size:14px; font-weight:700; padding:6px 15px; border-radius:30px; box-shadow:0 4px 14px rgba(255,71,87,.35); transition:transform .2s,box-shadow .2s; }
+.edit-card:hover .edit-play-btn { transform:scale(1.05); box-shadow:0 6px 20px rgba(255,71,87,.5); }
+.edit-play-icon { width:18px; height:18px; background:rgba(255,255,255,.25); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; padding-left:2px; }
+.edit-arrow { padding-right:14px; color:rgba(180,100,255,.5); font-size:22px; flex-shrink:0; }
+.edits-sparkle-row { display:flex; justify-content:center; gap:10px; font-size:20px; }
+.edits-sparkle-row span { animation:spk 2s ease-in-out infinite; }
+.edits-sparkle-row span:nth-child(1){animation-delay:0s} .edits-sparkle-row span:nth-child(2){animation-delay:.3s} .edits-sparkle-row span:nth-child(3){animation-delay:.6s} .edits-sparkle-row span:nth-child(4){animation-delay:.9s} .edits-sparkle-row span:nth-child(5){animation-delay:1.2s}
+@keyframes spk { 0%,100%{transform:scale(1) rotate(0deg);opacity:.7} 50%{transform:scale(1.4) rotate(20deg);opacity:1} }
+.edits-footer-note { font-family:'Caveat',cursive; color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding-bottom:8px; }
+
+@media(max-width:480px){ .comic-title{font-size:26px} .hw{font-size:18px} .big-q{font-size:30px} .photo-box{width:210px;height:210px} .final-msg{font-size:36px} .bday-title{font-size:26px} .edits-title{font-size:24px} .edit-song-name{font-size:16px} }
 img { -webkit-user-drag:none; user-select:none; }
 </style>
 </head>
 <body>
 
-<!-- ══ LOCK ══════════════════════════════════════════════════ -->
+<!-- LOCK -->
 <div id="s-lock" class="screen flex-screen show">
   <div class="lock-box">
     <div class="lock-icon">🔒</div>
@@ -343,22 +215,15 @@ img { -webkit-user-drag:none; user-select:none; }
       <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
     <div class="numpad">
-      <button class="num-btn" data-n="1">1</button>
-      <button class="num-btn" data-n="2">2</button>
-      <button class="num-btn" data-n="3">3</button>
-      <button class="num-btn" data-n="4">4</button>
-      <button class="num-btn" data-n="5">5</button>
-      <button class="num-btn" data-n="6">6</button>
-      <button class="num-btn" data-n="7">7</button>
-      <button class="num-btn" data-n="8">8</button>
-      <button class="num-btn" data-n="9">9</button>
-      <button class="num-btn zero" data-n="0">0</button>
-      <button class="num-btn" data-n="del">✕</button>
+      <button class="num-btn" data-n="1">1</button><button class="num-btn" data-n="2">2</button><button class="num-btn" data-n="3">3</button>
+      <button class="num-btn" data-n="4">4</button><button class="num-btn" data-n="5">5</button><button class="num-btn" data-n="6">6</button>
+      <button class="num-btn" data-n="7">7</button><button class="num-btn" data-n="8">8</button><button class="num-btn" data-n="9">9</button>
+      <button class="num-btn zero" data-n="0">0</button><button class="num-btn" data-n="del">✕</button>
     </div>
   </div>
 </div>
 
-<!-- ══ HOME ══════════════════════════════════════════════════ -->
+<!-- HOME -->
 <div id="s-home" class="screen">
   <div class="menu-welcome">Welcome Back 💕</div>
   <div class="menu-sub">Pick something special...</div>
@@ -379,6 +244,11 @@ img { -webkit-user-drag:none; user-select:none; }
       <div class="mc-text"><div class="mc-title">All About You</div><div class="mc-desc">Your very own magazine 💅</div></div>
       <div class="mc-arrow">›</div>
     </div>
+    <div class="menu-card edits-card-menu" onclick="go('edits')">
+      <div class="mc-icon">🎬</div>
+      <div class="mc-text"><div class="mc-title">Edits For You</div><div class="mc-desc">Made with love, just for you 🎵</div></div>
+      <div class="mc-arrow">›</div>
+    </div>
     <div class="menu-card bday-card-menu" onclick="go('birthday')">
       <div class="mc-icon">🎂</div>
       <div class="mc-text"><div class="mc-title" style="color:#e05c00;">Happy Birthday Nidhi!</div><div class="mc-desc">A little something just for you 🥳</div></div>
@@ -387,7 +257,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ VALENTINE 1 ════════════════════════════════════════════ -->
+<!-- VALENTINE 1 -->
 <div id="s-v1" class="screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <span class="heart-decor" style="top:20px;left:28px;font-size:26px">❤️</span>
@@ -404,7 +274,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ VALENTINE 2 ════════════════════════════════════════════ -->
+<!-- VALENTINE 2 -->
 <div id="s-v2" class="screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <span class="heart-decor" style="top:38px;left:18px;font-size:24px">💝</span>
@@ -414,7 +284,6 @@ img { -webkit-user-drag:none; user-select:none; }
     <h2 class="comic-title">You + Me Forever</h2>
     <div class="photo-wrap">
       <div class="photo-box">
-        <!-- Replace src with your photo path -->
         <img src=".trashed-1773406534-Screenshot_20260211-182404~2[1].png" alt="Us" loading="lazy">
         <span class="hb tl">❤️</span><span class="hb tr">❤️</span><span class="hb bl">❤️</span><span class="hb br">❤️</span>
       </div>
@@ -429,7 +298,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ VALENTINE 3 ════════════════════════════════════════════ -->
+<!-- VALENTINE 3 -->
 <div id="s-v3" class="screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <span class="heart-decor" style="top:28px;left:18px;font-size:28px">❤️</span>
@@ -445,7 +314,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ VALENTINE 4 – QUESTION ════════════════════════════════ -->
+<!-- VALENTINE 4 -->
 <div id="s-v4" class="screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <span class="heart-decor" style="top:28px;left:22px;font-size:36px">💝</span>
@@ -461,7 +330,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ FINAL MESSAGE ══════════════════════════════════════════ -->
+<!-- FINAL -->
 <div id="s-final" class="screen col-screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <span class="fdecor" style="top:50px;left:28px">💕</span>
@@ -478,7 +347,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ FLOWERS ════════════════════════════════════════════════ -->
+<!-- FLOWERS -->
 <div id="s-flowers" class="screen col-screen val-bg">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <div style="padding:30px 16px;text-align:center;width:100%;">
@@ -497,7 +366,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ GIFTS ══════════════════════════════════════════════════ -->
+<!-- GIFTS -->
 <div id="s-gifts" class="screen col-screen">
   <button class="back-btn" onclick="go('home')">← Home</button>
   <div class="gifts-hdr">
@@ -507,42 +376,29 @@ img { -webkit-user-drag:none; user-select:none; }
   <p class="swipe-hint">← swipe or tap arrows →</p>
   <div class="gifts-slider-wrap">
     <div class="gifts-track" id="giftsTrack">
-
-      <!-- CARD 1: Jhumkas, Flower Clutchers, Earrings -->
       <div class="gift-slide">
         <div class="gift-card">
           <div class="gift-tag">💝 Gift #1</div>
-          <div class="gift-img"><img src="1101.png" alt="Flower clutchers" loading="lazy">
-          </div>
+          <div class="gift-img"><img src="1101.png" alt="Flower clutchers" loading="lazy"></div>
           <div class="gift-name">Jhumkas &amp; Flower Clutchers</div>
           <div class="gift-note">Jhumkas, flower clutchers, earrings — as beautiful as you. Because your ears deserve the prettiest things. 🌸💕</div>
           <div class="gift-hearts">💕 🌸 ✨</div>
         </div>
       </div>
-
-      <!-- CARD 2: Camera -->
       <div class="gift-slide">
         <div class="gift-card">
           <div class="gift-tag">💝 Gift #2</div>
-          <div class="gift-img"> <img src="1011.jpg" alt="Camera" loading="lazy">
-          </div>
+          <div class="gift-img"><img src="1011.jpg" alt="Camera" loading="lazy"></div>
           <div class="gift-name">A Analog Camera, Just For You</div>
           <div class="gift-note">to capture every beautiful moment — and I want to be the one who gives you that. 📸❤️</div>
           <div class="gift-hearts">📷 💕 ✨</div>
         </div>
       </div>
-
-      <!-- CARD 3: Trip to All Countries -->
       <div class="gift-slide">
         <div class="gift-card">
           <div class="gift-tag">💝 Gift #3</div>
           <div class="gift-img" style="padding:0;background:#0a0a1a;position:relative;">
-            <img
-              src="Final111.jpg"
-              alt="City lights aerial view"
-              style="width:100%;height:100%;object-fit:cover;border-radius:14px;opacity:0.92;"
-              loading="lazy"
-            >
+            <img src="Final111.jpg" alt="City lights" style="width:100%;height:100%;object-fit:cover;border-radius:14px;opacity:0.92;" loading="lazy">
             <div style="position:absolute;bottom:8px;right:10px;font-size:18px;">🌍✈️</div>
           </div>
           <div class="gift-name">Trip To Every Country</div>
@@ -550,7 +406,6 @@ img { -webkit-user-drag:none; user-select:none; }
           <div class="gift-hearts">🌍 ✈️ 💝</div>
         </div>
       </div>
-
     </div>
   </div>
   <div class="gifts-dots">
@@ -564,7 +419,7 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ MAGAZINE SCROLL ════════════════════════════════════════ -->
+<!-- MAGAZINE SCROLL -->
 <div id="s-magScroll" class="screen col-screen">
   <button class="back-btn dark-back" onclick="go('home')">← Home</button>
   <div class="mag-scroll-wrap" id="magScrollWrap">
@@ -574,7 +429,6 @@ img { -webkit-user-drag:none; user-select:none; }
         <div class="mag-scroll-title">All About You</div>
       </div>
       <div class="mag-scroll-hint">scroll down to read</div>
-
       <div style="background:#fffef8;border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.35);">
         <img src="magazine.png" alt="Magazine page" style="width:100%;display:block;height:auto;">
       </div>
@@ -582,7 +436,71 @@ img { -webkit-user-drag:none; user-select:none; }
   </div>
 </div>
 
-<!-- ══ BIRTHDAY ═══════════════════════════════════════════════ -->
+<!-- EDITS FOR YOU -->
+<div id="s-edits" class="screen">
+  <button class="back-btn dark-back" onclick="go('home')">← Home</button>
+  <div id="notesWrap" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden;"></div>
+  <div class="edits-wrap">
+    <div class="edits-hdr">
+      <div class="edits-eyebrow">✦ made with love ✦</div>
+      <div class="edits-title">Edits For You 🎬</div>
+      <div class="edits-sub">tap any card to watch 🎵</div>
+    </div>
+
+    <a class="edit-card" href="https://youtu.be/sOxBE-ygqOg" target="_blank" rel="noopener">
+      <div class="edit-card-inner">
+        <div class="edit-num-strip"><div class="edit-num">01</div><div class="edit-vinyl">🎵</div></div>
+        <div class="edit-body">
+          <div class="edit-song-label">Song</div>
+          <div class="edit-song-name">Blue</div>
+          <div class="edit-play-btn"><div class="edit-play-icon">▶</div>Watch on YouTube</div>
+        </div>
+        <div class="edit-arrow">›</div>
+      </div>
+    </a>
+
+    <a class="edit-card" href="https://youtu.be/FZlWP9ehd08" target="_blank" rel="noopener">
+      <div class="edit-card-inner">
+        <div class="edit-num-strip"><div class="edit-num">02</div><div class="edit-vinyl">🎶</div></div>
+        <div class="edit-body">
+          <div class="edit-song-label">Song</div>
+          <div class="edit-song-name">Pretty Little Baby</div>
+          <div class="edit-play-btn"><div class="edit-play-icon">▶</div>Watch on YouTube</div>
+        </div>
+        <div class="edit-arrow">›</div>
+      </div>
+    </a>
+
+    <a class="edit-card" href="https://youtu.be/q2UqyPQBgOo" target="_blank" rel="noopener">
+      <div class="edit-card-inner">
+        <div class="edit-num-strip"><div class="edit-num">03</div><div class="edit-vinyl">🎵</div></div>
+        <div class="edit-body">
+          <div class="edit-song-label">Song</div>
+          <div class="edit-song-name">Her</div>
+          <div class="edit-play-btn"><div class="edit-play-icon">▶</div>Watch on YouTube</div>
+        </div>
+        <div class="edit-arrow">›</div>
+      </div>
+    </a>
+
+    <a class="edit-card" href="https://youtu.be/RTBiuMrCEUs" target="_blank" rel="noopener">
+      <div class="edit-card-inner">
+        <div class="edit-num-strip"><div class="edit-num">04</div><div class="edit-vinyl">🎶</div></div>
+        <div class="edit-body">
+          <div class="edit-song-label">Song</div>
+          <div class="edit-song-name">Until I Found You</div>
+          <div class="edit-play-btn"><div class="edit-play-icon">▶</div>Watch on YouTube</div>
+        </div>
+        <div class="edit-arrow">›</div>
+      </div>
+    </a>
+
+    <div class="edits-sparkle-row"><span>✨</span><span>💜</span><span>🎬</span><span>💜</span><span>✨</span></div>
+    <div class="edits-footer-note">every frame made just for you 🤍</div>
+  </div>
+</div>
+
+<!-- BIRTHDAY -->
 <div id="s-birthday" class="screen">
   <div class="confetti-wrap" id="confettiWrap"></div>
   <button class="back-btn dark-back" onclick="go('home')">← Home</button>
@@ -590,10 +508,7 @@ img { -webkit-user-drag:none; user-select:none; }
     <div class="bn">🎈</div><div class="bn">🎀</div><div class="bn">🎈</div><div class="bn">💜</div><div class="bn">🎈</div>
   </div>
   <div class="bday-content">
-    <div class="cake-wrap">
-      <div class="cglow"></div>
-      <div class="cake">🎂</div>
-    </div>
+    <div class="cake-wrap"><div class="cglow"></div><div class="cake">🎂</div></div>
     <div class="bday-pre">✨ it's your day, queen ✨</div>
     <div class="bday-title">Happy Birthday<br>Nidhi! 🎉</div>
     <div class="bday-card">
@@ -608,46 +523,42 @@ img { -webkit-user-drag:none; user-select:none; }
         Happy Birthday, beautiful. 🎂<br>
         <span class="bday-sign">— always yours ❤️</span>
       </div>
-      <span class="bstar s1">⭐</span>
-      <span class="bstar s2">✨</span>
-      <span class="bstar s3">⭐</span>
+      <span class="bstar s1">⭐</span><span class="bstar s2">✨</span><span class="bstar s3">⭐</span>
     </div>
     <div class="bday-chips">
       <div class="bday-chip">🎊 Celebrate</div>
       <div class="bday-chip">👑 Queen</div>
       <div class="bday-chip">🌸 Stunning</div>
     </div>
-    <div class="bday-burst">
-      <span>🎉</span><span>🎈</span><span>🥳</span><span>🎁</span><span>🎊</span>
-    </div>
+    <div class="bday-burst"><span>🎉</span><span>🎈</span><span>🥳</span><span>🎁</span><span>🎊</span></div>
   </div>
 </div>
 
 <script>
-// ══ SCREEN MAP ════════════════════════════════════════════════
 const S = {
-  lock    : document.getElementById('s-lock'),
-  home    : document.getElementById('s-home'),
-  v1      : document.getElementById('s-v1'),
-  v2      : document.getElementById('s-v2'),
-  v3      : document.getElementById('s-v3'),
-  v4      : document.getElementById('s-v4'),
-  final   : document.getElementById('s-final'),
-  flowers : document.getElementById('s-flowers'),
-  gifts   : document.getElementById('s-gifts'),
+  lock     : document.getElementById('s-lock'),
+  home     : document.getElementById('s-home'),
+  v1       : document.getElementById('s-v1'),
+  v2       : document.getElementById('s-v2'),
+  v3       : document.getElementById('s-v3'),
+  v4       : document.getElementById('s-v4'),
+  final    : document.getElementById('s-final'),
+  flowers  : document.getElementById('s-flowers'),
+  gifts    : document.getElementById('s-gifts'),
   magScroll: document.getElementById('s-magScroll'),
-  birthday: document.getElementById('s-birthday'),
+  edits    : document.getElementById('s-edits'),
+  birthday : document.getElementById('s-birthday'),
 };
 
 function go(name) {
   Object.values(S).forEach(s => s.classList.remove('show'));
   if (S[name]) S[name].classList.add('show');
-  if (name === 'home')     { resetNoBtn(); resetMagScroll(); goToGift(0); }
+  if (name === 'home')      { resetNoBtn(); resetMagScroll(); goToGift(0); }
   if (name === 'magScroll') { const w = document.getElementById('magScrollWrap'); if (w) w.scrollTop = 0; }
-  if (name === 'birthday') spawnConfetti();
+  if (name === 'birthday')  { spawnConfetti(); }
+  if (name === 'edits')     { spawnNotes(); }
 }
 
-// ══ PASSWORD ══════════════════════════════════════════════════
 const HASHES = [
   '36d144ea081f24500bf72163ccde3d47487366cc47e9ea2fa199f60bbbcee648',
   '60fb27b6df84e9fc873d3a2bda51e22fead7708c19a636d4650f75db7a590628'
@@ -663,9 +574,7 @@ document.querySelectorAll('.num-btn').forEach(btn => {
   });
 });
 
-function syncDots() {
-  dots.forEach((d,i) => d.classList.toggle('filled', i < pin.length));
-}
+function syncDots() { dots.forEach((d,i) => d.classList.toggle('filled', i < pin.length)); }
 
 async function sha256(t) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
@@ -683,7 +592,6 @@ async function checkPin() {
   }
 }
 
-// ══ NO BUTTON ═════════════════════════════════════════════════
 const noBtn = document.getElementById('noBtn');
 noBtn.addEventListener('mouseenter', moveNo);
 noBtn.addEventListener('touchstart', e => { e.preventDefault(); moveNo(); }, {passive:false});
@@ -691,15 +599,10 @@ noBtn.addEventListener('click', e => { e.preventDefault(); moveNo(); });
 
 function moveNo() {
   const r = noBtn.getBoundingClientRect();
-  noBtn.style.cssText = `position:fixed;z-index:9998;transition:all .3s ease;
-    left:${Math.random()*(window.innerWidth-r.width-40)+20}px;
-    top:${Math.random()*(window.innerHeight-r.height-40)+20}px`;
+  noBtn.style.cssText = `position:fixed;z-index:9998;transition:all .3s ease;left:${Math.random()*(window.innerWidth-r.width-40)+20}px;top:${Math.random()*(window.innerHeight-r.height-40)+20}px`;
 }
-function resetNoBtn() {
-  noBtn.style.cssText = '';
-}
+function resetNoBtn() { noBtn.style.cssText = ''; }
 
-// ══ GIFTS ════════════════════════════════════════════════════
 let curGift = 0;
 const GIFTS = 3;
 const gTrack = document.getElementById('giftsTrack');
@@ -714,18 +617,26 @@ function goToGift(i) {
 }
 function slideGift(d) { goToGift(curGift+d); }
 
-// touch swipe gifts
 let gx=0;
 document.getElementById('s-gifts').addEventListener('touchstart',e=>{gx=e.touches[0].clientX},{passive:true});
 document.getElementById('s-gifts').addEventListener('touchend',e=>{const d=gx-e.changedTouches[0].clientX;if(Math.abs(d)>50)slideGift(d>0?1:-1);});
 
-// ══ MAGAZINE SCROLL ═══════════════════════════════════════════
-function resetMagScroll() {
-  const w = document.getElementById('magScrollWrap');
-  if (w) w.scrollTop = 0;
+function resetMagScroll() { const w = document.getElementById('magScrollWrap'); if (w) w.scrollTop = 0; }
+
+function spawnNotes() {
+  const wrap = document.getElementById('notesWrap');
+  wrap.innerHTML = '';
+  const notes = ['🎵','🎶','♪','♫','🎼','🎧'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'note-decor';
+    el.textContent = notes[Math.floor(Math.random() * notes.length)];
+    const sz = 14 + Math.random() * 14;
+    el.style.cssText = `left:${Math.random()*95}vw;bottom:-30px;font-size:${sz}px;animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*6}s;`;
+    wrap.appendChild(el);
+  }
 }
 
-// ══ CONFETTI ══════════════════════════════════════════════════
 function spawnConfetti() {
   const wrap = document.getElementById('confettiWrap');
   wrap.innerHTML = '';
@@ -739,12 +650,9 @@ function spawnConfetti() {
   }
 }
 
-// ══ SECURITY ══════════════════════════════════════════════════
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('keydown',e=>{
-  if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74))||(e.ctrlKey&&e.keyCode===85)){
-    e.preventDefault();return false;
-  }
+  if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74))||(e.ctrlKey&&e.keyCode===85)){e.preventDefault();return false;}
 });
 </script>
 </body>
